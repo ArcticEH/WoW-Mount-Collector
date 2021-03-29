@@ -1,0 +1,17 @@
+<resources>
+    <!-- App Titles -->
+    <string name="app_name">WoW Mount Collector</string>
+
+    <!-- Activity One -->
+    <string name="actOne_name">Mount Database</string>
+    <string name="actOne_description">Search trough the list of mounts below and click one to view more details</string>
+    <string name="actOne_filterButton">Filter</string>
+
+    <!-- Activity Two -->
+    <string name="actTwo_name">Collection</string>
+    <string name="actTwo_description">View all the mounts you have collected</string>
+
+    <!-- Shared Preferences -->
+    <string name="sharedPreferences_file">Collection</string>
+    <string name="sharedPreferences_token_key">Collection</string>
+</resources>
