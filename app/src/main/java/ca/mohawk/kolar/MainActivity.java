@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -48,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
     public void DisplayMounts(MountResult[] mounts, String filter) {
         Log.d(TAG, "DisplayMounts()");
 
+        // Remove display status
+        TextView listViewStatusTextView = findViewById(R.id.ListViewStatusTextView);
+        listViewStatusTextView.setVisibility(View.GONE);
+
         // Set all mounts here if this is the first request
         if (allMounts == null) {
             allMounts = mounts;
@@ -65,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             mountsToDisplay = Arrays.asList(allMounts);
+        }
+
+        if (mountsToDisplay.size() == 0) {
+            listViewStatusTextView.setText("No items to display.");
+            listViewStatusTextView.setVisibility(View.VISIBLE);
         }
 
         MountAdapter adapter = new MountAdapter(this, mountsToDisplay);
