@@ -85,7 +85,7 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
         switch(requestType) {
             case "AllMounts":
                 AllMountRequestResult allMountRequestResult = gson.fromJson(result, AllMountRequestResult.class);
-                MainActivity.instance.DisplayMounts(allMountRequestResult.mounts);
+                MainActivity.instance.DisplayMounts(allMountRequestResult.mounts, null);
                 break;
             default:
                 Log.d(TAG, "Unknown request type.");

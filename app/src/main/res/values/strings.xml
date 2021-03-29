@@ -14,4 +14,6 @@
     <!-- Shared Preferences -->
     <string name="sharedPreferences_file">Collection</string>
     <string name="sharedPreferences_token_key">Collection</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -6,14 +6,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static String TAG = "==MainActivity";
     String token = "";
     public static MainActivity instance;
+
+    public MountResult[] allMounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +39,41 @@ public class MainActivity extends AppCompatActivity {
                 token
                 , "AllMounts");
 
+        // Set listeners
+        findViewById(R.id.FilterButton).setOnClickListener(this::onClickFilter);
+
     }
 
     //https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
-    public void DisplayMounts(MountResult[] mounts) {
+    public void DisplayMounts(MountResult[] mounts, String filter) {
         Log.d(TAG, "DisplayMounts()");
 
-        MountAdapter adapter = new MountAdapter(this, Arrays.asList(mounts));
+        // Set all mounts here if this is the first request
+        if (allMounts == null) {
+            allMounts = mounts;
+        }
+
+        // Set up list as mount adapter uses a list
+        List<MountResult> mountsToDisplay;
+
+        // If filter is provided
+        if (filter != null) {
+            mountsToDisplay = new ArrayList<MountResult>();
+            for (MountResult mr: allMounts) {
+                if (mr.name.contains(filter))
+                    mountsToDisplay.add(mr);
+            }
+        } else {
+            mountsToDisplay = Arrays.asList(allMounts);
+        }
+
+        MountAdapter adapter = new MountAdapter(this, mountsToDisplay);
         ListView mountList = findViewById(R.id.MountListView);
         mountList.setAdapter(adapter);
+    }
+
+    public void onClickFilter(View view) {
+        FilterFragment loginDialogFragment = new FilterFragment();
+        loginDialogFragment.show(getSupportFragmentManager(), null);
     }
 }
