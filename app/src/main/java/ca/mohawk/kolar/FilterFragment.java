@@ -50,13 +50,17 @@ public class FilterFragment extends DialogFragment {
         Log.d(tag, mountName);
 
         // Get token
-        MainActivity.instance.DisplayMounts(null, mountName);
+        MainActivity.instance.DisplayMounts(null, mountName.toLowerCase());
 
         // Dismiss when done
         dismiss();
     }
 
     public void onClickCancel(View view) {
+        // Set default display mounts
+        MainActivity.instance.DisplayMounts(null, null);
+
+        // Dismiss when done
         dismiss();
     }
 }

@@ -69,7 +69,9 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Set in manifest what parent activity is
-        NavUtils.navigateUpFromSameTask(this);
-        return super.onOptionsItemSelected(item);
+        onBackPressed();
+        return true;
+        //return super.onOptionsItemSelected(item);
+
     }
 }

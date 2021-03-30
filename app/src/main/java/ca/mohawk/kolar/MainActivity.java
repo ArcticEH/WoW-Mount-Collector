@@ -64,13 +64,16 @@ public class MainActivity extends AppCompatActivity {
         List<MountResult> mountsToDisplay;
 
         // If filter is provided
+        TextView filterTextView = findViewById(R.id.FilteredTextView);
         if (filter != null) {
+            filterTextView.setText(getString(R.string.actOne_filteredTextView, filter.toUpperCase()));
             mountsToDisplay = new ArrayList<MountResult>();
             for (MountResult mr: allMounts) {
-                if (mr.name.contains(filter))
+                if (mr.name.toLowerCase().contains(filter))
                     mountsToDisplay.add(mr);
             }
         } else {
+            filterTextView.setText(getString(R.string.actOne_filteredTextView, "NONE"));
             mountsToDisplay = Arrays.asList(allMounts);
         }
 
@@ -93,6 +96,6 @@ public class MainActivity extends AppCompatActivity {
         Intent detailViewIntent = new Intent(this, DetailActivity.class);
         TextView mountIdTextView = v.findViewById(R.id.IdTextView);
         detailViewIntent.putExtra("mountId", Integer.parseInt(mountIdTextView.getText().toString()));
-        startActivity(detailViewIntent);
+        startActivityForResult(detailViewIntent, 0);
     }
 }
