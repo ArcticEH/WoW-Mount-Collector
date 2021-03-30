@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         Intent detailViewIntent = new Intent(this, DetailActivity.class);
         TextView mountIdTextView = v.findViewById(R.id.IdTextView);
         detailViewIntent.putExtra("mountId", Integer.parseInt(mountIdTextView.getText().toString()));
+        detailViewIntent.putExtra("useAPI", true);
         startActivityForResult(detailViewIntent, 0);
     }
 }
