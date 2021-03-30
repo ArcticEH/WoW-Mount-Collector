@@ -3,14 +3,14 @@ package ca.mohawk.kolar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Set listeners
         findViewById(R.id.FilterButton).setOnClickListener(this::onClickFilter);
+        ListView mountListView = findViewById(R.id.MountListView);
+        mountListView.setOnItemClickListener(this::onItemClick);
 
     }
 
@@ -85,5 +87,12 @@ public class MainActivity extends AppCompatActivity {
     public void onClickFilter(View view) {
         FilterFragment loginDialogFragment = new FilterFragment();
         loginDialogFragment.show(getSupportFragmentManager(), null);
+    }
+
+    public void onItemClick(AdapterView parent, View v, int position, long id) {
+        Intent detailViewIntent = new Intent(this, DetailActivity.class);
+        TextView mountIdTextView = v.findViewById(R.id.IdTextView);
+        detailViewIntent.putExtra("mountId", Integer.parseInt(mountIdTextView.getText().toString()));
+        startActivity(detailViewIntent);
     }
 }

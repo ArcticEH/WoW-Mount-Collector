@@ -87,6 +87,9 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
                 AllMountRequestResult allMountRequestResult = gson.fromJson(result, AllMountRequestResult.class);
                 MainActivity.instance.DisplayMounts(allMountRequestResult.mounts, null);
                 break;
+            case "MountDetail":
+                MountDetailResult mountDetailResult = gson.fromJson(result, MountDetailResult.class);
+                DetailActivity.instance.SetMountDetails(mountDetailResult);
             default:
                 Log.d(TAG, "Unknown request type.");
                 return;
