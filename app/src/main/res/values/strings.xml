@@ -19,4 +19,8 @@
     <string name="sharedPreferences_file">Collection</string>
     <string name="sharedPreferences_token_key">Collection</string>
 
+    <!-- Navigation Drawer -->
+    <string name="open">Open Drawer</string>
+    <string name="close">Close Drawer</string>
+
 </resources>

@@ -1,24 +1,36 @@
 package ca.mohawk.kolar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static String TAG = "==MainActivity";
     String token = "";
     public static MainActivity instance;
+
+    DrawerLayout navigationDrawer;
+    NavigationView navigationView;
 
     public MountResult[] allMounts;
 
@@ -45,6 +57,34 @@ public class MainActivity extends AppCompatActivity {
         ListView mountListView = findViewById(R.id.MountListView);
         mountListView.setOnItemClickListener(this::onItemClick);
 
+        // Setup the navigation bar
+        SetupNavigationBar();
+
+    }
+
+    private void SetupNavigationBar() {
+        // Access drawer
+        navigationDrawer = (DrawerLayout)
+                findViewById(R.id.drawer_layout);
+
+        // Enable display of home button
+        ActionBar myActionBar = getSupportActionBar();
+        myActionBar.setDisplayHomeAsUpEnabled(true);
+
+        // Add drawer toggle listener
+        ActionBarDrawerToggle myactionbartoggle = new
+                ActionBarDrawerToggle(this, navigationDrawer,
+                (R.string.open), (R.string.close));
+        navigationDrawer.addDrawerListener(myactionbartoggle);
+        myactionbartoggle.syncState();
+
+        // Set up callback for when drawer item is selected
+        navigationView = (NavigationView)
+                findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // Set first item on startup
+        onNavigationItemSelected(navigationView.getMenu().getItem(0));
     }
 
     //https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
@@ -65,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         // If filter is provided
         TextView filterTextView = findViewById(R.id.FilteredTextView);
-        if (filter != null) {
+        if (filter != null && !filter.equals("")) {
             filterTextView.setText(getString(R.string.actOne_filteredTextView, filter.toUpperCase()));
             mountsToDisplay = new ArrayList<MountResult>();
             for (MountResult mr: allMounts) {
@@ -98,5 +138,40 @@ public class MainActivity extends AppCompatActivity {
         detailViewIntent.putExtra("mountId", Integer.parseInt(mountIdTextView.getText().toString()));
         detailViewIntent.putExtra("useAPI", true);
         startActivityForResult(detailViewIntent, 0);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Set selected menu items
+        int size = navigationView.getMenu().size();
+        for (int i = 0; i < size; i++) {
+            MenuItem currItem = navigationView.getMenu().getItem(i);
+            if (currItem.equals(item))
+                currItem.setChecked(true);
+            else
+                currItem.setChecked(false);
+        }
+
+        // Close menu drawer
+        navigationDrawer.closeDrawers();
+        return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Find out the current state of the drawer (open or closed)
+        boolean isOpen = navigationDrawer.isDrawerOpen(GravityCompat.START);
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Home button - open or close the drawer
+                if (isOpen == true) {
+                    navigationDrawer.closeDrawer(GravityCompat.START);
+                } else {
+                    navigationDrawer.openDrawer(GravityCompat.START);
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
