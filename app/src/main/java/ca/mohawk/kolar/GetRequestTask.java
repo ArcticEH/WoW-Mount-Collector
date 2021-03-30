@@ -90,6 +90,14 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
             case "MountDetail":
                 MountDetailResult mountDetailResult = gson.fromJson(result, MountDetailResult.class);
                 DetailActivity.instance.SetMountDetails(mountDetailResult);
+                break;
+            case "CreatureImage":
+                CreatureDisplayResult creatureDisplayResult = gson.fromJson(result, CreatureDisplayResult.class);
+
+                // Start image download task
+                DownloadImageTask dl = new DownloadImageTask();
+                dl.execute(creatureDisplayResult.assets[0].value);
+                break;
             default:
                 Log.d(TAG, "Unknown request type.");
                 return;

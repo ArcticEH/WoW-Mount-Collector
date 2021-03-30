@@ -4,7 +4,7 @@ public class MountDetailResult {
     public transient String _links;
     public int id;
     public String name;
-    public CreatureDisplayIdResult[] creature_displays;
+    public CreatureDisplayResult[] creature_displays;
     public String description;
     public transient String source;
     public transient String faction;
