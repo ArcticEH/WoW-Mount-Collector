@@ -41,7 +41,6 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-
         // Set instance to be called from api
         instance = this;
 

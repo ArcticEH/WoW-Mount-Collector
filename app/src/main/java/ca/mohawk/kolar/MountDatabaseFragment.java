@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MountDatabaseFragment extends Fragment {
     public static String TAG = "==MountDatabaseFragment==";
-    String token = "";
+
     public static MountDatabaseFragment instance;
 
     public MountResult[] allMounts;

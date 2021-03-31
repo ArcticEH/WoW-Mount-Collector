@@ -1,5 +1,7 @@
 package ca.mohawk.kolar;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,9 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 public class CollectionFragment extends Fragment {
 
+    MyDbHelper mydbhelper;
 
     public CollectionFragment() {
         // Required empty public constructor
@@ -20,7 +27,25 @@ public class CollectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_collection, container, false);
+        View view = inflater.inflate(R.layout.fragment_collection, container, false);
+
+        mydbhelper = new MyDbHelper(getContext());
+
+        // Get database instance
+        SQLiteDatabase db = mydbhelper.getReadableDatabase();
+
+        // Define fields we want
+        String[] projection = {mydbhelper.ID, mydbhelper.NAME, mydbhelper.MOUNT_ID, mydbhelper.IMAGE};
+
+        // Get data and return cursor
+        Cursor myCursor = db.query(mydbhelper.MOUNT_TABLE, projection, null, null, null, null, null);
+
+        // Display data in list view
+        ListAdapter adapter = new SimpleCursorAdapter(getContext(), R.layout.mount_collection_layout, myCursor,
+                projection, new int[] {R.id.IdTextView, R.id.MountNameTextView});
+        ListView listView = view.findViewById(R.id.MountListView);
+        listView.setAdapter(adapter);
+
+        return view;
     }
 }
