@@ -51,6 +51,8 @@ public class MountDatabaseFragment extends Fragment {
         ListView mountListView = view.findViewById(R.id.MountListView);
         mountListView.setOnItemClickListener(this::onItemClick);
 
+        mountListView.setDividerHeight(10);
+
         return view;
     }
 

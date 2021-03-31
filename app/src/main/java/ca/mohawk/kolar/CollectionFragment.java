@@ -66,7 +66,7 @@ public class CollectionFragment extends Fragment {
         // Set adapter
         ListAdapter adapter = new CollectionAdapter(getContext(), collectionModels);
         listView.setAdapter(adapter);
-        
+
 
         return view;
     }
