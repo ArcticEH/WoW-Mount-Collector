@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -15,6 +16,8 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 
 public class NavigationViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    FragmentManager fragmentManager;
 
     DrawerLayout navigationDrawer;
     NavigationView navigationView;
@@ -44,17 +47,13 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
                 findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Set first item on startup
+
+        // Set fragment manager
+        fragmentManager = getSupportFragmentManager();
+
+        // Select first menu item
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
 
-        // Just starts top fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        // Insert fragments top fragment will show and where to display them
-        MainActivity MainActivity = new MainActivity();
-        fragmentTransaction.replace(R.id.FrameLayout, MainActivity);
-        fragmentTransaction.commit();
     }
 
     @Override
@@ -68,6 +67,27 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
             else
                 currItem.setChecked(false);
         }
+
+        // Check which activity to display
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Insert fragments top fragment will show and where to display them
+        Fragment fragmentToDisplay;
+        switch (item.getItemId()) {
+            case R.id.MountDataMenuItem:
+                fragmentToDisplay = new MountDatabaseFragment();
+                break;
+            case R.id.CollectionMenuItem:
+                fragmentToDisplay = new CollectionFragment();
+                break;
+            default:
+                fragmentToDisplay = new MountDatabaseFragment();
+
+        }
+
+        fragmentTransaction.replace(R.id.FrameLayout, fragmentToDisplay);
+        fragmentTransaction.commit();
+
 
         // Close menu drawer
         navigationDrawer.closeDrawers();

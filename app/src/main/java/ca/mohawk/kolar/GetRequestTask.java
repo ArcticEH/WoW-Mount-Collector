@@ -1,7 +1,5 @@
 package ca.mohawk.kolar;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -9,12 +7,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 
@@ -85,7 +79,7 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
         switch(requestType) {
             case "AllMounts":
                 AllMountRequestResult allMountRequestResult = gson.fromJson(result, AllMountRequestResult.class);
-                MainActivity.instance.DisplayMounts(allMountRequestResult.mounts, null);
+                MountDatabaseFragment.instance.DisplayMounts(allMountRequestResult.mounts, null);
                 break;
             case "MountDetail":
                 MountDetailResult mountDetailResult = gson.fromJson(result, MountDetailResult.class);

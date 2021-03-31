@@ -1,9 +1,7 @@
 package ca.mohawk.kolar;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+
 import androidx.fragment.app.DialogFragment;
 
 import android.util.Log;
@@ -12,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 
 public class FilterFragment extends DialogFragment {
@@ -50,7 +46,7 @@ public class FilterFragment extends DialogFragment {
         Log.d(tag, mountName);
 
         // Get token
-        MainActivity.instance.DisplayMounts(null, mountName.toLowerCase());
+        MountDatabaseFragment.instance.DisplayMounts(null, mountName.toLowerCase());
 
         // Dismiss when done
         dismiss();
@@ -58,7 +54,7 @@ public class FilterFragment extends DialogFragment {
 
     public void onClickCancel(View view) {
         // Set default display mounts
-        MainActivity.instance.DisplayMounts(null, null);
+        MountDatabaseFragment.instance.DisplayMounts(null, null);
 
         // Dismiss when done
         dismiss();

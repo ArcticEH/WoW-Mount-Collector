@@ -1,11 +1,5 @@
 package ca.mohawk.kolar;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
@@ -14,23 +8,20 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.navigation.NavigationView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends Fragment {
-    public static String TAG = "==MainActivity";
+public class MountDatabaseFragment extends Fragment {
+    public static String TAG = "==MountDatabaseFragment==";
     String token = "";
-    public static MainActivity instance;
+    public static MountDatabaseFragment instance;
 
     public MountResult[] allMounts;
 

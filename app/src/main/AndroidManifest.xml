@@ -15,7 +15,7 @@
         <activity android:name=".DetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ca.mohawk.kolar.MainActivity" />
+                android:value="ca.mohawk.kolar.MountDatabaseFragment" />
         </activity>
         <activity android:name=".LoadingActivity">
             <intent-filter>
@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MountDatabaseFragment" />
     </application>
 
 </manifest>
