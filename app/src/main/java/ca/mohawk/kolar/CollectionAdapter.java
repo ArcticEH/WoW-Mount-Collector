@@ -1,6 +1,8 @@
 package ca.mohawk.kolar;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -53,14 +55,39 @@ public class CollectionAdapter extends ArrayAdapter<CollectionModel> {
         // Set on click for delete item
         convertView.findViewById(R.id.DeleteButton).setOnClickListener(v -> {
             Log.d(TAG, String.valueOf(collectionModel.MountId));
-            // Remove from collection
-            // Get database instance
-            MyDbHelper mydbhelper = new MyDbHelper(getContext());
-            SQLiteDatabase db = mydbhelper.getReadableDatabase();
-            db.delete(mydbhelper.MOUNT_TABLE, mydbhelper.MOUNT_ID + " = " + collectionModel.MountId, null);
 
-            list.remove(position);
-            notifyDataSetChanged();
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            // Get database instance
+                            MyDbHelper mydbhelper = new MyDbHelper(getContext());
+                            SQLiteDatabase db = mydbhelper.getReadableDatabase();
+
+                            // Remove from collection
+                            db.delete(mydbhelper.MOUNT_TABLE, mydbhelper.MOUNT_ID + " = " + collectionModel.MountId, null);
+
+                            // Remove from list and notify of refresh
+                            list.remove(position);
+                            notifyDataSetChanged();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage("Removing a mount will permanently remove all of its details. \n\nIt can only be added again from the mount database page. " +
+                    "\n\nAre you sure?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+
+
+
+
         });
 
         return convertView;

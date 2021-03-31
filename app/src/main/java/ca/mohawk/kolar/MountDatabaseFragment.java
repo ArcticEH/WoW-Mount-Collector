@@ -58,40 +58,45 @@ public class MountDatabaseFragment extends Fragment {
     public void DisplayMounts(MountResult[] mounts, String filter) {
         Log.d(TAG, "DisplayMounts()");
 
-        // Remove display status
-        TextView listViewStatusTextView = getActivity().findViewById(R.id.ListViewStatusTextView);
-        listViewStatusTextView.setVisibility(View.GONE);
+        try {
+            // Remove display status
+            TextView listViewStatusTextView = getActivity().findViewById(R.id.ListViewStatusTextView);
+            listViewStatusTextView.setVisibility(View.GONE);
 
-        // Set all mounts here if this is the first request
-        if (allMounts == null) {
-            allMounts = mounts;
-        }
-
-        // Set up list as mount adapter uses a list
-        List<MountResult> mountsToDisplay;
-
-        // If filter is provided
-        TextView filterTextView = getActivity().findViewById(R.id.FilteredTextView);
-        if (filter != null && !filter.equals("")) {
-            filterTextView.setText(getString(R.string.actOne_filteredTextView, filter.toUpperCase()));
-            mountsToDisplay = new ArrayList<MountResult>();
-            for (MountResult mr: allMounts) {
-                if (mr.name.toLowerCase().contains(filter))
-                    mountsToDisplay.add(mr);
+            // Set all mounts here if this is the first request
+            if (allMounts == null) {
+                allMounts = mounts;
             }
-        } else {
-            filterTextView.setText(getString(R.string.actOne_filteredTextView, "NONE"));
-            mountsToDisplay = Arrays.asList(allMounts);
+
+            // Set up list as mount adapter uses a list
+            List<MountResult> mountsToDisplay;
+
+            // If filter is provided
+            TextView filterTextView = getActivity().findViewById(R.id.FilteredTextView);
+            if (filter != null && !filter.equals("")) {
+                filterTextView.setText(getString(R.string.actOne_filteredTextView, filter.toUpperCase()));
+                mountsToDisplay = new ArrayList<MountResult>();
+                for (MountResult mr: allMounts) {
+                    if (mr.name.toLowerCase().contains(filter))
+                        mountsToDisplay.add(mr);
+                }
+            } else {
+                filterTextView.setText(getString(R.string.actOne_filteredTextView, "NONE"));
+                mountsToDisplay = Arrays.asList(allMounts);
+            }
+
+            if (mountsToDisplay.size() == 0) {
+                listViewStatusTextView.setText("No items to display.");
+                listViewStatusTextView.setVisibility(View.VISIBLE);
+            }
+
+            MountAdapter adapter = new MountAdapter(getContext(), mountsToDisplay);
+            ListView mountList = getActivity().findViewById(R.id.MountListView);
+            mountList.setAdapter(adapter);
+        } catch (Exception ex) {
+            Log.d(TAG, "Exception occurred.");
         }
 
-        if (mountsToDisplay.size() == 0) {
-            listViewStatusTextView.setText("No items to display.");
-            listViewStatusTextView.setVisibility(View.VISIBLE);
-        }
-
-        MountAdapter adapter = new MountAdapter(getContext(), mountsToDisplay);
-        ListView mountList = getActivity().findViewById(R.id.MountListView);
-        mountList.setAdapter(adapter);
     }
 
     public void onClickFilter(View view) {
