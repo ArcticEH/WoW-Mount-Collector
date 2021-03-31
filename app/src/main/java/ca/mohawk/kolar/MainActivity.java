@@ -6,14 +6,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,26 +27,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends Fragment {
     public static String TAG = "==MainActivity";
     String token = "";
     public static MainActivity instance;
 
-    DrawerLayout navigationDrawer;
-    NavigationView navigationView;
-
     public MountResult[] allMounts;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        View view = inflater.inflate(R.layout.activity_main, container, false);
 
         // Set main activity to access from requests
         instance = this;
 
         // Request list info
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.sharedPreferences_file), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.sharedPreferences_file), Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(getString(R.string.sharedPreferences_token_key), "");
         Log.d(TAG, "Token - " + token);
 
@@ -53,46 +55,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 , "AllMounts");
 
         // Set listeners
-        findViewById(R.id.FilterButton).setOnClickListener(this::onClickFilter);
-        ListView mountListView = findViewById(R.id.MountListView);
+        view.findViewById(R.id.FilterButton).setOnClickListener(this::onClickFilter);
+        ListView mountListView = view.findViewById(R.id.MountListView);
         mountListView.setOnItemClickListener(this::onItemClick);
 
-        // Setup the navigation bar
-        SetupNavigationBar();
-
+        return view;
     }
 
-    private void SetupNavigationBar() {
-        // Access drawer
-        navigationDrawer = (DrawerLayout)
-                findViewById(R.id.drawer_layout);
-
-        // Enable display of home button
-        ActionBar myActionBar = getSupportActionBar();
-        myActionBar.setDisplayHomeAsUpEnabled(true);
-
-        // Add drawer toggle listener
-        ActionBarDrawerToggle myactionbartoggle = new
-                ActionBarDrawerToggle(this, navigationDrawer,
-                (R.string.open), (R.string.close));
-        navigationDrawer.addDrawerListener(myactionbartoggle);
-        myactionbartoggle.syncState();
-
-        // Set up callback for when drawer item is selected
-        navigationView = (NavigationView)
-                findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // Set first item on startup
-        onNavigationItemSelected(navigationView.getMenu().getItem(0));
-    }
 
     //https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
     public void DisplayMounts(MountResult[] mounts, String filter) {
         Log.d(TAG, "DisplayMounts()");
 
         // Remove display status
-        TextView listViewStatusTextView = findViewById(R.id.ListViewStatusTextView);
+        TextView listViewStatusTextView = getActivity().findViewById(R.id.ListViewStatusTextView);
         listViewStatusTextView.setVisibility(View.GONE);
 
         // Set all mounts here if this is the first request
@@ -104,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         List<MountResult> mountsToDisplay;
 
         // If filter is provided
-        TextView filterTextView = findViewById(R.id.FilteredTextView);
+        TextView filterTextView = getActivity().findViewById(R.id.FilteredTextView);
         if (filter != null && !filter.equals("")) {
             filterTextView.setText(getString(R.string.actOne_filteredTextView, filter.toUpperCase()));
             mountsToDisplay = new ArrayList<MountResult>();
@@ -122,56 +98,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             listViewStatusTextView.setVisibility(View.VISIBLE);
         }
 
-        MountAdapter adapter = new MountAdapter(this, mountsToDisplay);
-        ListView mountList = findViewById(R.id.MountListView);
+        MountAdapter adapter = new MountAdapter(getContext(), mountsToDisplay);
+        ListView mountList = getActivity().findViewById(R.id.MountListView);
         mountList.setAdapter(adapter);
     }
 
     public void onClickFilter(View view) {
         FilterFragment loginDialogFragment = new FilterFragment();
-        loginDialogFragment.show(getSupportFragmentManager(), null);
+        loginDialogFragment.show(getFragmentManager(), null);
     }
 
     public void onItemClick(AdapterView parent, View v, int position, long id) {
-        Intent detailViewIntent = new Intent(this, DetailActivity.class);
+        Intent detailViewIntent = new Intent(getActivity(), DetailActivity.class);
         TextView mountIdTextView = v.findViewById(R.id.IdTextView);
         detailViewIntent.putExtra("mountId", Integer.parseInt(mountIdTextView.getText().toString()));
         detailViewIntent.putExtra("useAPI", true);
         startActivityForResult(detailViewIntent, 0);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Set selected menu items
-        int size = navigationView.getMenu().size();
-        for (int i = 0; i < size; i++) {
-            MenuItem currItem = navigationView.getMenu().getItem(i);
-            if (currItem.equals(item))
-                currItem.setChecked(true);
-            else
-                currItem.setChecked(false);
-        }
 
-        // Close menu drawer
-        navigationDrawer.closeDrawers();
-        return false;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Find out the current state of the drawer (open or closed)
-        boolean isOpen = navigationDrawer.isDrawerOpen(GravityCompat.START);
-        // Handle item selection
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // Home button - open or close the drawer
-                if (isOpen == true) {
-                    navigationDrawer.closeDrawer(GravityCompat.START);
-                } else {
-                    navigationDrawer.openDrawer(GravityCompat.START);
-                }
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -41,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+
         // Set instance to be called from api
         instance = this;
 
@@ -63,7 +64,6 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         // Check if mount is in database
-        // TODO: Check if in database to determine what button to display
         SQLiteDatabase db = mydbhelper.getReadableDatabase();
         String[] projection = { mydbhelper.ID, mydbhelper.NAME, mydbhelper.MOUNT_ID, mydbhelper.IMAGE};
 

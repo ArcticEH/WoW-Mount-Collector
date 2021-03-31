@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.concurrent.ExecutionException;
 
 public class LoadingActivity extends AppCompatActivity {
@@ -26,7 +28,7 @@ public class LoadingActivity extends AppCompatActivity {
         }
 
         // Start main activity once we have a token
-        Intent myIntent = new Intent(this, MainActivity.class);
+        Intent myIntent = new Intent(this, NavigationViewActivity.class);
         startActivity(myIntent);
 
 
