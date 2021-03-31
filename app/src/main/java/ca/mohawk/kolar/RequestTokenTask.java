@@ -85,14 +85,18 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
     protected void onPostExecute(String result) {
         Log.d(TAG, "onPostExecute()");
 
-        // Get token from result
-        Gson gson = new Gson();
-        TokenResult tokenResult = gson.fromJson(result, TokenResult.class);
+        if (!results.equals("")) {
+            // Get token from result
+            Gson gson = new Gson();
+            TokenResult tokenResult = gson.fromJson(result, TokenResult.class);
 
-        // Store result in shared preferences
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.sharedPreferences_file), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(context.getString(R.string.sharedPreferences_token_key), tokenResult.access_token);
-        editor.apply();
+            // Store result in shared preferences
+            SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.sharedPreferences_file), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(context.getString(R.string.sharedPreferences_token_key), tokenResult.access_token);
+            editor.apply();
+        }
+
+
     }
 }

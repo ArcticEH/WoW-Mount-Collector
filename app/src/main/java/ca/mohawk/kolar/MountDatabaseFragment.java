@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -86,8 +87,7 @@ public class MountDatabaseFragment extends Fragment {
             }
 
             if (mountsToDisplay.size() == 0) {
-                listViewStatusTextView.setText("No items to display.");
-                listViewStatusTextView.setVisibility(View.VISIBLE);
+                SetStatus("No items to display", false, false);
             }
 
             MountAdapter adapter = new MountAdapter(getContext(), mountsToDisplay);
@@ -95,6 +95,23 @@ public class MountDatabaseFragment extends Fragment {
             mountList.setAdapter(adapter);
         } catch (Exception ex) {
             Log.d(TAG, "Exception occurred.");
+        }
+
+    }
+
+    public void SetStatus(String text, Boolean hidden, Boolean disableButton) {
+        TextView statusTextView = getActivity().findViewById(R.id.ListViewStatusTextView);
+        statusTextView.setText(text);
+        if (hidden) {
+            statusTextView.setVisibility(View.GONE);
+        } else {
+            statusTextView.setVisibility(View.VISIBLE);
+        }
+
+        if (disableButton) {
+            getActivity().findViewById(R.id.FilterButton).setEnabled(false);
+        } else {
+            getActivity().findViewById(R.id.FilterButton).setEnabled(true);
         }
 
     }

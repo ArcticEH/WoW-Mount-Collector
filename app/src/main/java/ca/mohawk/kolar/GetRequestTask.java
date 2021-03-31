@@ -76,27 +76,35 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
         // Parse result based on request type
         Gson gson = new Gson();
 
-        switch(requestType) {
-            case "AllMounts":
-                AllMountRequestResult allMountRequestResult = gson.fromJson(result, AllMountRequestResult.class);
-                MountDatabaseFragment.instance.DisplayMounts(allMountRequestResult.mounts, null);
-                break;
-            case "MountDetail":
-                MountDetailResult mountDetailResult = gson.fromJson(result, MountDetailResult.class);
-                DetailActivity.instance.SetMountDetails(mountDetailResult);
-                break;
-            case "CreatureImage":
-                CreatureDisplayResult creatureDisplayResult = gson.fromJson(result, CreatureDisplayResult.class);
+        try {
+            switch(requestType) {
+                case "AllMounts":
+                    AllMountRequestResult allMountRequestResult = gson.fromJson(result, AllMountRequestResult.class);
+                    MountDatabaseFragment.instance.DisplayMounts(allMountRequestResult.mounts, null);
+                    break;
+                case "MountDetail":
+                    MountDetailResult mountDetailResult = gson.fromJson(result, MountDetailResult.class);
+                    DetailActivity.instance.SetMountDetails(mountDetailResult);
+                    break;
+                case "CreatureImage":
+                    CreatureDisplayResult creatureDisplayResult = gson.fromJson(result, CreatureDisplayResult.class);
 
-                // Start image download task
-                DownloadImageTask dl = new DownloadImageTask();
-                dl.execute(creatureDisplayResult.assets[0].value);
-                break;
-            default:
-                Log.d(TAG, "Unknown request type.");
-                return;
+                    // Start image download task
+                    DownloadImageTask dl = new DownloadImageTask();
+                    dl.execute(creatureDisplayResult.assets[0].value);
+                    break;
+                default:
+                    Log.d(TAG, "Unknown request type.");
+                    return;
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "Exception occurred during PostExecute get task - " + e.getMessage());
+            if (requestType.equals("AllMounts")) {
+                MountDatabaseFragment.instance.SetStatus("Error occurred fetching mounts. Check your internet connection and reload app to try again.", false, true);
+            }
         }
-        TokenResult tokenResult = gson.fromJson(result, TokenResult.class);
+
+
 
 
     }
