@@ -72,7 +72,7 @@
                 android:id="@+id/FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/Navy"
+                android:backgroundTint="@color/darkGold"
                 android:text="@string/actOne_filterButton"
                 app:layout_constraintBottom_toTopOf="@+id/FilteredTextView"
                 app:layout_constraintEnd_toEndOf="parent"

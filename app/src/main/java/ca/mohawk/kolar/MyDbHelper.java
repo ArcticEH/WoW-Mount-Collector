@@ -15,12 +15,12 @@ public class MyDbHelper extends SQLiteOpenHelper {
     public static final String ID = "_id";
     public static final String MOUNT_ID = "mount_id";
     public static final String DESCRIPTION = "mount_description";
-    public static final String IMAGE = "image";
+    public static final String DATE_ADDED = "mount_description";
     public static final String NAME = "name";
 
     private static final String SQL_CREATE =
             "CREATE TABLE " + MOUNT_TABLE + " ( " + ID + " INTEGER PRIMARY KEY, " +
-                    MOUNT_ID + " INTEGER, " + IMAGE + " BLOB, " + NAME + " TEXT, " + DESCRIPTION + " TEXT) ";
+                    MOUNT_ID + " INTEGER, " + DATE_ADDED + " TEXT, " + NAME + " TEXT, " + DESCRIPTION + " TEXT) ";
 
     public MyDbHelper(Context context) {
         super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION);

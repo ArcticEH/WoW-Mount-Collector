@@ -19,6 +19,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static String TAG = "==DetailActivity==";
@@ -64,7 +67,7 @@ public class DetailActivity extends AppCompatActivity {
 
         // Check if mount is in database
         SQLiteDatabase db = mydbhelper.getReadableDatabase();
-        String[] projection = { mydbhelper.ID, mydbhelper.NAME, mydbhelper.MOUNT_ID, mydbhelper.IMAGE};
+        String[] projection = { mydbhelper.ID, mydbhelper.MOUNT_ID};
 
         Cursor c = db.query(MyDbHelper.MOUNT_TABLE, projection, mydbhelper.MOUNT_ID + " = " + mountId, null, null, null, null);
         if (c.getCount() > 0) {
@@ -126,7 +129,7 @@ public class DetailActivity extends AppCompatActivity {
             values.put(mydbhelper.NAME, mountName);
             values.put(mydbhelper.DESCRIPTION, mountDescription);
             values.put(mydbhelper.MOUNT_ID, mountId);
-            values.put(mydbhelper.IMAGE, String.valueOf(mountImage));
+            values.put(mydbhelper.DATE_ADDED, new SimpleDateFormat("dd-MM-yyyy").format(new Date())); // Add current date
 
             long rowId = db.insert(mydbhelper.MOUNT_TABLE, null, values);
             Log.d(TAG, "Mount Added - " + rowId);

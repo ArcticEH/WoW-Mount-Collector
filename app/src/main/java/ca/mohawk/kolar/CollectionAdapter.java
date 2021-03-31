@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class CollectionAdapter extends ArrayAdapter<CollectionModel> {
@@ -45,10 +46,13 @@ public class CollectionAdapter extends ArrayAdapter<CollectionModel> {
         // Lookup view for mount info
         TextView mountId = convertView.findViewById(R.id.IdTextView);
         TextView mountName = convertView.findViewById(R.id.MountNameTextView);
+        TextView dateAdded = convertView.findViewById(R.id.DateAddedTextView);
 
         // Set text
         mountId.setText(Integer.toString(collectionModel.MountId));
         mountName.setText(collectionModel.name);
+
+        dateAdded.setText("Date Added: " + collectionModel.Date);
 
 
 

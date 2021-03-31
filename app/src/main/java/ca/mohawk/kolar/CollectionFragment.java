@@ -41,7 +41,7 @@ public class CollectionFragment extends Fragment {
         SQLiteDatabase db = mydbhelper.getReadableDatabase();
 
         // Define fields we want
-        String[] projection = {mydbhelper.ID, mydbhelper.NAME, mydbhelper.MOUNT_ID, mydbhelper.IMAGE};
+        String[] projection = {mydbhelper.ID, mydbhelper.NAME, mydbhelper.MOUNT_ID, mydbhelper.DATE_ADDED};
 
         // Get data and return cursor
         ArrayList<CollectionModel> collectionModels = new ArrayList<CollectionModel>();
@@ -50,6 +50,7 @@ public class CollectionFragment extends Fragment {
             CollectionModel collectionModel = new CollectionModel();
             collectionModel.MountId = myCursor.getInt(myCursor.getColumnIndex(mydbhelper.MOUNT_ID));
             collectionModel.name = myCursor.getString(myCursor.getColumnIndex(mydbhelper.NAME));
+            collectionModel.Date = myCursor.getString(myCursor.getColumnIndex(mydbhelper.DATE_ADDED));
             collectionModels.add(collectionModel);
         }
 
@@ -65,9 +66,7 @@ public class CollectionFragment extends Fragment {
         // Set adapter
         ListAdapter adapter = new CollectionAdapter(getContext(), collectionModels);
         listView.setAdapter(adapter);
-
-
-
+        
 
         return view;
     }
