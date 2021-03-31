@@ -56,7 +56,7 @@ public class CollectionFragment extends Fragment {
 
         // Get listview to set values
         ListView listView = view.findViewById(R.id.MountListView);
-        listView.setDividerHeight(10);
+        listView.setDividerHeight(7);
         listView.setHeaderDividersEnabled(true);
 
         // Set empty text to display

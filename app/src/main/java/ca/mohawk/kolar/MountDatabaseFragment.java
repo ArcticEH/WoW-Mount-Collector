@@ -51,7 +51,7 @@ public class MountDatabaseFragment extends Fragment {
         ListView mountListView = view.findViewById(R.id.MountListView);
         mountListView.setOnItemClickListener(this::onItemClick);
 
-        mountListView.setDividerHeight(10);
+        mountListView.setDividerHeight(7);
 
         return view;
     }
@@ -80,7 +80,7 @@ public class MountDatabaseFragment extends Fragment {
                 filterTextView.setText(getString(R.string.actOne_filteredTextView, filter.toUpperCase()));
                 mountsToDisplay = new ArrayList<MountResult>();
                 for (MountResult mr: allMounts) {
-                    if (mr.name.toLowerCase().contains(filter))
+                    if (mr.name.toLowerCase().contains(filter) || Integer.toString(mr.id).contains(filter))
                         mountsToDisplay.add(mr);
                 }
             } else {
