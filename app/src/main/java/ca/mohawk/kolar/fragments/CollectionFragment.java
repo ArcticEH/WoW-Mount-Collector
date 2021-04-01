@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,21 +21,37 @@ import ca.mohawk.kolar.database.MyDbHelper;
 import ca.mohawk.kolar.R;
 import ca.mohawk.kolar.models.CollectionModel;
 
+/**
+ * Collection fragment used to display mont collection in a list view and provide easy means
+ * of removing mounts
+ */
 public class CollectionFragment extends Fragment {
+    public static String TAG = "==CollectionFragment==";
 
+    // Cache
     MyDbHelper mydbhelper;
 
+    /**
+     * constructor
+     */
     public CollectionFragment() {
+        Log.d(TAG, "CollectionFragment()");
         // Required empty public constructor
     }
 
 
+    /**
+     * Configure listview by accessing mount information from sqlite database
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView()");
 
+        // Inflate the view
         View view = inflater.inflate(R.layout.fragment_collection, container, false);
 
+        // insantiate mydbhelper
         mydbhelper = new MyDbHelper(getContext());
 
         // Get database instance
@@ -67,7 +84,7 @@ public class CollectionFragment extends Fragment {
         ListAdapter adapter = new CollectionAdapter(getContext(), collectionModels);
         listView.setAdapter(adapter);
 
-
+        // Finally, return view
         return view;
     }
 }

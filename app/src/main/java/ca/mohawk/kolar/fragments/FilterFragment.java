@@ -1,28 +1,32 @@
 package ca.mohawk.kolar.fragments;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.DialogFragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import ca.mohawk.kolar.R;
 
-
+/**
+ * Provides filtering of mounts displayed in database
+ */
 public class FilterFragment extends DialogFragment {
+    public static String TAG = "==FilterFragment==";
 
-    public static String tag = "==FilterFragment==";
-
+    /**
+     * Constructor
+     */
     public FilterFragment() {
+        Log.d(TAG, "FilterFragment()");
         // Required empty public constructor
     }
 
-
+    /**
+     * Configures the view by setting on click handers
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,23 +42,30 @@ public class FilterFragment extends DialogFragment {
         return view;
     }
 
+    /**
+     * onClick handler for ok. Filter results
+     * @param view
+     */
     public void onClickOk(View view) {
-        Log.d(tag, "onClickOk");
-
+        Log.d(TAG, "onClickOk()");
         // Get text to filter by
         TextView filterTextView = getView().findViewById(R.id.FilterEditText);
         String mountName = filterTextView.getText().toString();
 
-        Log.d(tag, mountName);
-
-        // Get token
+        // Call database fragment below to filter results
         MountDatabaseFragment.instance.DisplayMounts(null, mountName.toLowerCase());
 
         // Dismiss when done
         dismiss();
     }
 
+    /**
+     * onClick handler for cancel. Display all mounts
+     * @param view
+     */
     public void onClickCancel(View view) {
+        Log.d(TAG, "onClickCancel()");
+
         // Set default display mounts
         MountDatabaseFragment.instance.DisplayMounts(null, null);
 
