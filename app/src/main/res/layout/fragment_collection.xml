@@ -8,7 +8,7 @@
     tools:context=".MountDatabaseFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ConstraintLayout1"
+        android:id="@+id/PageLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/backgroundDark"
@@ -21,7 +21,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="Collection"
+            android:text="@string/collection_title"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="64dp"
-            android:text="@string/actTwo_description"
+            android:text="@string/collection_description"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +57,7 @@
                 android:id="@+id/MountDatabaseImageView"
                 android:layout_width="125dp"
                 android:layout_height="100dp"
+                android:contentDescription="@string/collection_imageDescription"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +70,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/MountsHeader"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:background="@color/Navy"
@@ -77,14 +78,14 @@
             android:backgroundTintMode="add"
             android:gravity="center_vertical"
             android:paddingLeft="32dp"
-            android:text="Mounts "
+            android:text="@string/collection_mountHeader"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout2" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/AddMoreHeader"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:background="@color/Navy"
@@ -92,12 +93,12 @@
             android:backgroundTintMode="add"
             android:gravity="center_vertical"
             android:paddingRight="8dp"
-            android:text="Add more from mount database"
+            android:text="@string/collection_addInstruction"
             android:textAlignment="viewEnd"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/MountsHeader"
             app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,7 +110,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
+            app:layout_constraintTop_toBottomOf="@+id/MountsHeader">
 
             <ListView
                 android:id="@+id/MountListView"
@@ -129,7 +130,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:text="No mounts in collection. Add mounts on the mount database page!"
                 android:textAlignment="center"
                 android:textColor="@color/backgroundDark"
                 android:textSize="18sp"

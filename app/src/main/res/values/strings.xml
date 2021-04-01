@@ -2,17 +2,31 @@
     <!-- App Titles -->
     <string name="app_name">WoW Mount Collector</string>
 
-    <!-- Activity One -->
-    <string name="actOne_name">Mount Database</string>
-    <string name="actOne_description">Search through the list of mounts below and click one to view more details</string>
-    <string name="actOne_filterButton">Filter</string>
-    <string name="actOne_filteredTextView">Currently filtered by:\n %1$s</string>
+    <!-- Mount Database Fragment -->
+    <string name="db_title">Mount Database</string>
+    <string name="db_desc">Search through the list of mounts below and click one to view more details</string>
+    <string name="db_filterButton">Filter</string>
+    <string name="db_filteredTextView">Currently filtered by:\n %1$s</string>
+    <string name="db_imageDesc">World of Warcraft Icon</string>
+    <string name="db_mountHeader">Mounts</string>
+    <string name="db_receivedFromApi">*mounts retrieved from WoW APIs</string>
 
-    <!-- Activity Two -->
-    <string name="actTwo_name">Collection</string>
-    <string name="actTwo_description">View all the mounts you have collected</string>
+    <!-- Collection Fragment -->
+    <string name="collection_title">Collection</string>
+    <string name="collection_description">View all the mounts you have collected</string>
+    <string name="collection_imageDescription">Collection Icon</string>
+    <string name="collection_mountHeader">Mounts</string>
+    <string name="collection_addInstruction">Add more from mount database</string>
 
-    <!-- Activity Three -->
+    <!-- Detail Activity -->
+
+    <!-- Collection Adapter -->
+    <string name="collectionAdapter_dateAdded">Date added:  %1$s</string>
+    <string name="collectionAdapter_deleteAlert">Removing a mount will permanently remove all of its details. \n\nIt can only be added again from the mount database page.
+                    \n\nAre you sure?</string>
+    <string name="collectionAdapter_yes">Yes</string>
+    <string name="collectionAdapter_no">No</string>
+
 
 
     <!-- Shared Preferences -->
@@ -22,7 +36,10 @@
     <!-- Navigation Drawer -->
     <string name="open">Open Drawer</string>
     <string name="close">Close Drawer</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- API Endpoints -->
+
+
 
 </resources>

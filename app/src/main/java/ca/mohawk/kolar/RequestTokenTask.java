@@ -44,12 +44,21 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
             httpClient.setRequestMethod("POST");
             String urlParameters = "client_id=67abe6658d094665adde7f9d613d9af9&client_secret=8KDAdbzKPYhPSjhbkvOu0g7SxWQqRzJe&grant_type=client_credentials";
 
+            httpClient.setConnectTimeout(1000);
+            httpClient.setReadTimeout(1000);
+            httpClient.getReadTimeout();
+
             // Send POST request
             httpClient.setDoOutput(true);
+
+
+
             try (DataOutputStream wr = new DataOutputStream(httpClient.getOutputStream())) {
                 wr.writeBytes(urlParameters);
                 wr.flush();
             }
+
+            httpClient.connect();
 
             // Handle Response
             int responseCode = httpClient.getResponseCode();
@@ -95,6 +104,10 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(context.getString(R.string.sharedPreferences_token_key), tokenResult.access_token);
             editor.apply();
+
+            LoadingActivity.instance.SuccessfulLogin();
+        } else {
+            LoadingActivity.instance.UnsuccessfulLogin();
         }
 
 

@@ -25,7 +25,6 @@ public class CollectionAdapter extends ArrayAdapter<CollectionModel> {
 
     List list;
 
-
     public CollectionAdapter(@NonNull Context context, @NonNull List<CollectionModel> objects) {
         super(context, 0, objects);
 
@@ -52,9 +51,7 @@ public class CollectionAdapter extends ArrayAdapter<CollectionModel> {
         mountId.setText(Integer.toString(collectionModel.MountId));
         mountName.setText(collectionModel.name);
 
-        dateAdded.setText("Date Added: " + collectionModel.Date);
-
-
+        dateAdded.setText(getContext().getString(R.string.collectionAdapter_dateAdded, collectionModel.Date));
 
         // Set on click for delete item
         convertView.findViewById(R.id.DeleteButton).setOnClickListener(v -> {
@@ -85,9 +82,8 @@ public class CollectionAdapter extends ArrayAdapter<CollectionModel> {
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage("Removing a mount will permanently remove all of its details. \n\nIt can only be added again from the mount database page. " +
-                    "\n\nAre you sure?").setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener).show();
+            builder.setMessage(R.string.collectionAdapter_deleteAlert).setPositiveButton(R.string.collectionAdapter_yes, dialogClickListener)
+                    .setNegativeButton(R.string.collectionAdapter_no, dialogClickListener).show();
 
 
 

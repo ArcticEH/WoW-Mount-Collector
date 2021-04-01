@@ -8,7 +8,7 @@
     tools:context=".MountDatabaseFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ConstraintLayout1"
+        android:id="@+id/PageLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
@@ -22,7 +22,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/actOne_name"
+            android:text="@string/db_title"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="64dp"
-            android:text="@string/actOne_description"
+            android:text="@string/db_desc"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +60,7 @@
                 android:id="@+id/MountDatabaseImageView"
                 android:layout_width="125dp"
                 android:layout_height="100dp"
+                android:contentDescription="@string/db_imageDesc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/FilterButton"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -73,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/darkGold"
-                android:text="@string/actOne_filterButton"
+                android:text="@string/db_filterButton"
                 app:layout_constraintBottom_toTopOf="@+id/FilteredTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -88,7 +89,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="8dp"
-                android:text="Currently filtered by:\n NONE"
+                android:text="@string/db_filteredTextView"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +99,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/MountHeaderTextView"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:background="@color/Navy"
@@ -106,15 +107,15 @@
             android:backgroundTintMode="add"
             android:gravity="center_vertical"
             android:paddingLeft="32dp"
-            android:text="Mounts"
+            android:text="@string/db_mountHeader"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintBottom_toTopOf="@+id/ListViewConstraintLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout2" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/MountsRetrievedTextView"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:background="@color/Navy"
@@ -122,17 +123,17 @@
             android:backgroundTintMode="add"
             android:paddingTop="10dp"
             android:paddingRight="8dp"
-            android:text="Tap mount for additional details"
+            android:text="@string/db_receivedFromApi"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintBottom_toTopOf="@+id/ListViewConstraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toEndOf="@+id/MountHeaderTextView"
             app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/ListViewConstraintLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/white"
@@ -140,13 +141,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
+            app:layout_constraintTop_toBottomOf="@+id/MountHeaderTextView">
 
             <TextView
                 android:id="@+id/ListViewStatusTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Loading..."
                 android:textAlignment="center"
                 android:textColor="@color/backgroundDark"
                 android:textSize="18sp"

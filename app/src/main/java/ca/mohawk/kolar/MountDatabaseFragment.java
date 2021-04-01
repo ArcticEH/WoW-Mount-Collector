@@ -24,6 +24,8 @@ public class MountDatabaseFragment extends Fragment {
 
     public static MountDatabaseFragment instance;
 
+    public static boolean offlineMode = false;
+
     public MountResult[] allMounts;
 
     @Override
@@ -31,10 +33,21 @@ public class MountDatabaseFragment extends Fragment {
                                 Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View view = inflater.inflate(R.layout.activity_main, container, false);
+        View view = inflater.inflate(R.layout.mount_database, container, false);
 
         // Set main activity to access from requests
         instance = this;
+
+        if (offlineMode) {
+            TextView textView = view.findViewById(R.id.ListViewStatusTextView);
+            textView.setText("Unable to contact WoW APIs. You may access your collection only in offline mode");
+            Button filterButton = view.findViewById(R.id.FilterButton);
+            filterButton.setEnabled(false);
+            TextView filterTextView = view.findViewById(R.id.FilteredTextView);
+            filterTextView.setText("");
+            return view;
+        }
+
 
         // Request list info
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.sharedPreferences_file), Context.MODE_PRIVATE);
@@ -77,14 +90,14 @@ public class MountDatabaseFragment extends Fragment {
             // If filter is provided
             TextView filterTextView = getActivity().findViewById(R.id.FilteredTextView);
             if (filter != null && !filter.equals("")) {
-                filterTextView.setText(getString(R.string.actOne_filteredTextView, filter.toUpperCase()));
+                filterTextView.setText(getString(R.string.db_filteredTextView, filter.toUpperCase()));
                 mountsToDisplay = new ArrayList<MountResult>();
                 for (MountResult mr: allMounts) {
                     if (mr.name.toLowerCase().contains(filter) || Integer.toString(mr.id).contains(filter))
                         mountsToDisplay.add(mr);
                 }
             } else {
-                filterTextView.setText(getString(R.string.actOne_filteredTextView, "NONE"));
+                filterTextView.setText(getString(R.string.db_filteredTextView, "NONE"));
                 mountsToDisplay = Arrays.asList(allMounts);
             }
 
@@ -111,6 +124,8 @@ public class MountDatabaseFragment extends Fragment {
         }
 
         if (disableButton) {
+            TextView filterTextView = getActivity().findViewById(R.id.FilteredTextView);
+            filterTextView.setText("");
             getActivity().findViewById(R.id.FilterButton).setEnabled(false);
         } else {
             getActivity().findViewById(R.id.FilterButton).setEnabled(true);

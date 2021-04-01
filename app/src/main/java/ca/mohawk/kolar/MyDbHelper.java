@@ -15,7 +15,7 @@ public class MyDbHelper extends SQLiteOpenHelper {
     public static final String ID = "_id";
     public static final String MOUNT_ID = "mount_id";
     public static final String DESCRIPTION = "mount_description";
-    public static final String DATE_ADDED = "mount_description";
+    public static final String DATE_ADDED = "date_added";
     public static final String NAME = "name";
 
     private static final String SQL_CREATE =
