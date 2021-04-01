@@ -2,6 +2,9 @@ package ca.mohawk.kolar.models;
 
 import ca.mohawk.kolar.models.CreatureDisplayResult;
 
+/**
+ * Result model associated with a specific mount detail request
+ */
 public class MountDetailResult {
     public transient String _links;
     public int id;

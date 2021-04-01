@@ -1,5 +1,5 @@
 <resources>
-    <!-- App Titles -->
+    <!-- App Title -->
     <string name="app_name">WoW Mount Collector</string>
 
     <!-- Mount Database Fragment -->
