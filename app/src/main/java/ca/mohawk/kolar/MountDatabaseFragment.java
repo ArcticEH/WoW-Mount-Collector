@@ -141,8 +141,7 @@ public class MountDatabaseFragment extends Fragment {
     public void onItemClick(AdapterView parent, View v, int position, long id) {
         Intent detailViewIntent = new Intent(getActivity(), DetailActivity.class);
         TextView mountIdTextView = v.findViewById(R.id.IdTextView);
-        detailViewIntent.putExtra("mountId", Integer.parseInt(mountIdTextView.getText().toString()));
-        detailViewIntent.putExtra("useAPI", true);
+        detailViewIntent.putExtra(getString(R.string.detail_intent_mountId), Integer.parseInt(mountIdTextView.getText().toString()));
         startActivityForResult(detailViewIntent, 0);
     }
 

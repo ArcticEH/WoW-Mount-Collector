@@ -19,6 +19,12 @@
     <string name="collection_addInstruction">Add more from mount database</string>
 
     <!-- Detail Activity -->
+    <string name="detail_loading">Loading...</string>
+    <string name="detail_description">Description</string>
+    <string name="detail_addToCollection">Add to Collection</string>
+    <string name="detail_RemoveFromCollection">Remove from Collection</string>
+    <string name="detail_imageDesc">Image of mount</string>
+    <string name="detail_intent_mountId">mountId</string>
 
     <!-- Collection Adapter -->
     <string name="collectionAdapter_dateAdded">Date added:  %1$s</string>
@@ -31,7 +37,7 @@
 
     <!-- Shared Preferences -->
     <string name="sharedPreferences_file">Collection</string>
-    <string name="sharedPreferences_token_key">Collection</string>
+    <string name="sharedPreferences_token_key">tokenKey</string>
 
     <!-- Navigation Drawer -->
     <string name="open">Open Drawer</string>
@@ -39,7 +45,8 @@
 
 
     <!-- API Endpoints -->
-
+    <string name="api_creatureDisplay">https://us.api.blizzard.com/data/wow/media/creature-display/%1$s?namespace=static-us&amp;locale=en_US&amp;access_token=%2$s</string>
+    <string name="api_mountDetail">https://us.api.blizzard.com/data/wow/mount/%1$s?namespace=static-us&amp;locale=en_US&amp;access_token=%2$s</string>
 
 
 </resources>

@@ -37,7 +37,6 @@ public class DetailActivity extends AppCompatActivity {
     private int mountId;
     private String mountName;
     private String mountDescription;
-    private Bitmap mountImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,25 +50,22 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get mount ID
-        mountId = getIntent().getIntExtra("mountId", 6);
+        mountId = getIntent().getIntExtra(getString(R.string.detail_intent_mountId), 6);
 
-        Boolean useApi = getIntent().getBooleanExtra("useAPI", false);
-        if (useApi) {
-            sharedPreferences = getSharedPreferences(getString(R.string.sharedPreferences_file), Context.MODE_PRIVATE);
-            String token = sharedPreferences.getString(getString(R.string.sharedPreferences_token_key), "");
+        sharedPreferences = getSharedPreferences(getString(R.string.sharedPreferences_file), Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(getString(R.string.sharedPreferences_token_key), "");
 
-            // Make request for detailed mount info
-            GetRequestTask getRequestTask = new GetRequestTask();
-            getRequestTask.execute("https://us.api.blizzard.com/data/wow/mount/" + Integer.toString(mountId) + "?namespace=static-us&locale=en_US&access_token=" +
-                            token
-                    , "MountDetail");
-        }
+        // Make request for detailed mount info
+        GetRequestTask getRequestTask = new GetRequestTask();
+        getRequestTask.execute(getString(R.string.api_mountDetail, Integer.toString(mountId), token)
+                , GetRequestType.MountDetail.toString());
+
 
         // Check if mount is in database
         SQLiteDatabase db = mydbhelper.getReadableDatabase();
-        String[] projection = { mydbhelper.ID, mydbhelper.MOUNT_ID};
+        String[] projection = {MyDbHelper.ID, MyDbHelper.MOUNT_ID};
 
-        Cursor c = db.query(MyDbHelper.MOUNT_TABLE, projection, mydbhelper.MOUNT_ID + " = " + mountId, null, null, null, null);
+        Cursor c = db.query(MyDbHelper.MOUNT_TABLE, projection, MyDbHelper.MOUNT_ID + " = " + mountId, null, null, null, null);
         if (c.getCount() > 0) {
             // It is saved
             c.moveToFirst();
@@ -79,12 +75,14 @@ public class DetailActivity extends AppCompatActivity {
             IsInCollection = false;
         }
 
+        c.close();
+
         // Set button text
         Button collectionButton = findViewById(R.id.CollectionButton);
         if (IsInCollection) {
-            collectionButton.setText("Remove from Collection");
+            collectionButton.setText(R.string.detail_RemoveFromCollection);
         } else {
-            collectionButton.setText("Add to Collection");
+            collectionButton.setText(R.string.detail_addToCollection);
         }
 
         // Set on click listener
@@ -103,17 +101,13 @@ public class DetailActivity extends AppCompatActivity {
         // Make new request for image with creature media id received
         String token = sharedPreferences.getString(getString(R.string.sharedPreferences_token_key), "");
         GetRequestTask getRequestTask = new GetRequestTask();
-        getRequestTask.execute("https://us.api.blizzard.com/data/wow/media/creature-display/" + mountDetailResult.creature_displays[0].id + "?namespace=static-us&locale=en_US&access_token="
-                + token,
-                "CreatureImage");
+        getRequestTask.execute(getString(R.string.api_creatureDisplay, Integer.toString(mountDetailResult.creature_displays[0].id), token),
+                GetRequestType.CreatureImage.toString());
     }
 
     public void SetMountImage(Bitmap imageBitMap) {
         ImageView imageView = findViewById(R.id.MountDetailImageView);
         imageView.setImageBitmap(imageBitMap);
-        mountImage = imageBitMap;
-
-        // TODO: This is where the add to collection button should actually be enabled for proper saving
     }
 
     public void onClickAddOrRemoveFromCollection(View view) {
@@ -121,18 +115,17 @@ public class DetailActivity extends AppCompatActivity {
 
         if (IsInCollection) {
             // Remove from collection
-            db.delete(mydbhelper.MOUNT_TABLE, mydbhelper.MOUNT_ID + " = " + mountId, null);
+            db.delete(MyDbHelper.MOUNT_TABLE, MyDbHelper.MOUNT_ID + " = " + mountId, null);
             IsInCollection = false;
         } else {
             // Add to collection
             ContentValues values = new ContentValues();
-            values.put(mydbhelper.NAME, mountName);
-            values.put(mydbhelper.DESCRIPTION, mountDescription);
-            values.put(mydbhelper.MOUNT_ID, mountId);
-            values.put(mydbhelper.DATE_ADDED, new SimpleDateFormat("dd-MM-yyyy").format(new Date())); // Add current date
+            values.put(MyDbHelper.NAME, mountName);
+            values.put(MyDbHelper.DESCRIPTION, mountDescription);
+            values.put(MyDbHelper.MOUNT_ID, mountId);
+            values.put(MyDbHelper.DATE_ADDED, new SimpleDateFormat("dd-MM-yyyy").format(new Date())); // Add current date
 
-            long rowId = db.insert(mydbhelper.MOUNT_TABLE, null, values);
-            Log.d(TAG, "Mount Added - " + rowId);
+            long rowId = db.insert(MyDbHelper.MOUNT_TABLE, null, values);
 
             IsInCollection = true;
         }
@@ -140,9 +133,9 @@ public class DetailActivity extends AppCompatActivity {
         // Set button text
         Button collectionButton = findViewById(R.id.CollectionButton);
         if (IsInCollection) {
-            collectionButton.setText("Remove from Collection");
+            collectionButton.setText(R.string.detail_RemoveFromCollection);
         } else {
-            collectionButton.setText("Add to Collection");
+            collectionButton.setText(R.string.detail_addToCollection);
         }
     }
 

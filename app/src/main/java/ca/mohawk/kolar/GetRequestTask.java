@@ -1,5 +1,6 @@
 package ca.mohawk.kolar;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -15,7 +16,28 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+enum GetRequestType {
+    AllMounts {
+        public String toString() {
+            return "AllMounts";
+        }
+    },
+
+    CreatureImage {
+        public String toString() {
+            return "CreatureImage";
+        }
+    },
+
+    MountDetail {
+        public String toString() {
+            return "MountDetail";
+        }
+    }
+}
+
 public class GetRequestTask extends AsyncTask<String, Void, String> {
+
 
     // https://mkyong.com/java/how-to-send-http-request-getpost-in-java/
 
@@ -24,18 +46,20 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
     String results = "";
     String requestType = "";
 
+
+
     @Override
     protected String doInBackground(String... params) {
         Log.d(TAG, "doInBackground()");
 
         Log.d(TAG, "Starting Background Task");
 
-
         try {
 
             // Get request information
             String url = params[0];
             requestType = params[1];
+
 
             // Setup Http client
             HttpsURLConnection httpClient = (HttpsURLConnection) new URL(url).openConnection();
@@ -77,34 +101,32 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
         Gson gson = new Gson();
 
         try {
-            switch(requestType) {
-                case "AllMounts":
-                    AllMountRequestResult allMountRequestResult = gson.fromJson(result, AllMountRequestResult.class);
-                    MountDatabaseFragment.instance.DisplayMounts(allMountRequestResult.mounts, null);
-                    break;
-                case "MountDetail":
-                    MountDetailResult mountDetailResult = gson.fromJson(result, MountDetailResult.class);
-                    DetailActivity.instance.SetMountDetails(mountDetailResult);
-                    break;
-                case "CreatureImage":
-                    CreatureDisplayResult creatureDisplayResult = gson.fromJson(result, CreatureDisplayResult.class);
+            if (requestType.equals(GetRequestType.AllMounts.toString())) {
+                AllMountRequestResult allMountRequestResult = gson.fromJson(result, AllMountRequestResult.class);
+                MountDatabaseFragment.instance.DisplayMounts(allMountRequestResult.mounts, null);
+                return;
+            }
 
-                    // Start image download task
-                    DownloadImageTask dl = new DownloadImageTask();
-                    dl.execute(creatureDisplayResult.assets[0].value);
-                    break;
-                default:
-                    Log.d(TAG, "Unknown request type.");
-                    return;
+            if (requestType.equals(GetRequestType.MountDetail.toString())) {
+                MountDetailResult mountDetailResult = gson.fromJson(result, MountDetailResult.class);
+                DetailActivity.instance.SetMountDetails(mountDetailResult);
+                return;
+            }
+
+            if (requestType.equals(GetRequestType.CreatureImage.toString())) {
+                CreatureDisplayResult creatureDisplayResult = gson.fromJson(result, CreatureDisplayResult.class);
+
+                // Start image download task
+                DownloadImageTask dl = new DownloadImageTask();
+                dl.execute(creatureDisplayResult.assets[0].value);
             }
         } catch (Exception e) {
             Log.d(TAG, "Exception occurred during PostExecute get task - " + e.getMessage());
-            if (requestType.equals("AllMounts")) {
+
+            if (requestType.equals(GetRequestType.AllMounts.toString())) {
                 MountDatabaseFragment.instance.SetStatus("Error occurred fetching mounts. Check your internet connection and reload app to try again.", false, true);
             }
         }
-
-
 
 
     }

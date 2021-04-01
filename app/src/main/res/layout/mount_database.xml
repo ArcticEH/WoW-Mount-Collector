@@ -44,7 +44,7 @@
             app:layout_constraintTop_toBottomOf="@+id/CollectionTitleTextView" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ConstraintLayout2"
+            android:id="@+id/ImageConstraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -112,7 +112,7 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/ListViewConstraintLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/ImageConstraintLayout" />
 
         <TextView
             android:id="@+id/MountsRetrievedTextView"
@@ -130,7 +130,7 @@
             app:layout_constraintBottom_toTopOf="@+id/ListViewConstraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/MountHeaderTextView"
-            app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/ImageConstraintLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ListViewConstraintLayout"
@@ -147,6 +147,7 @@
                 android:id="@+id/ListViewStatusTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/detail_loading"
                 android:textAlignment="center"
                 android:textColor="@color/backgroundDark"
                 android:textSize="18sp"
