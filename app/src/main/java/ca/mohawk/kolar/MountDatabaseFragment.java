@@ -40,7 +40,7 @@ public class MountDatabaseFragment extends Fragment {
 
         if (offlineMode) {
             TextView textView = view.findViewById(R.id.ListViewStatusTextView);
-            textView.setText("Unable to contact WoW APIs. You may access your collection only in offline mode");
+            textView.setText(getContext().getString(R.string.db_status_offlineMode));
             Button filterButton = view.findViewById(R.id.FilterButton);
             filterButton.setEnabled(false);
             TextView filterTextView = view.findViewById(R.id.FilteredTextView);
@@ -52,12 +52,11 @@ public class MountDatabaseFragment extends Fragment {
         // Request list info
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.sharedPreferences_file), Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(getString(R.string.sharedPreferences_token_key), "");
-        Log.d(TAG, "Token - " + token);
+
 
         GetRequestTask getRequestTask = new GetRequestTask();
-        getRequestTask.execute("https://us.api.blizzard.com/data/wow/mount/index?namespace=static-us&locale=en_US&access_token=" +
-                token
-                , "AllMounts");
+        getRequestTask.execute(getContext().getString(R.string.api_allMounts, token)
+                , GetRequestType.AllMounts.toString());
 
         // Set listeners
         view.findViewById(R.id.FilterButton).setOnClickListener(this::onClickFilter);
@@ -102,7 +101,7 @@ public class MountDatabaseFragment extends Fragment {
             }
 
             if (mountsToDisplay.size() == 0) {
-                SetStatus("No items to display", false, false);
+                SetStatus(getContext().getString(R.string.db_status_noMounts), false, false);
             }
 
             MountAdapter adapter = new MountAdapter(getContext(), mountsToDisplay);

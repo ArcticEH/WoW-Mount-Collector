@@ -123,7 +123,7 @@ public class DetailActivity extends AppCompatActivity {
             values.put(MyDbHelper.NAME, mountName);
             values.put(MyDbHelper.DESCRIPTION, mountDescription);
             values.put(MyDbHelper.MOUNT_ID, mountId);
-            values.put(MyDbHelper.DATE_ADDED, new SimpleDateFormat("dd-MM-yyyy").format(new Date())); // Add current date
+            values.put(MyDbHelper.DATE_ADDED, new SimpleDateFormat(getString(R.string.helper_dateFormat)).format(new Date())); // Add current date
 
             long rowId = db.insert(MyDbHelper.MOUNT_TABLE, null, values);
 
@@ -144,7 +144,5 @@ public class DetailActivity extends AppCompatActivity {
         // Set in manifest what parent activity is
         onBackPressed();
         return true;
-        //return super.onOptionsItemSelected(item);
-
     }
 }

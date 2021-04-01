@@ -37,7 +37,7 @@ public class FilterFragment extends DialogFragment {
     }
 
     public void onClickOk(View view) {
-        Log.d(tag, "onOk");
+        Log.d(tag, "onClickOk");
 
         // Get text to filter by
         TextView filterTextView = getView().findViewById(R.id.FilterEditText);

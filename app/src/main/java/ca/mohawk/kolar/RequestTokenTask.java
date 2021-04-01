@@ -25,6 +25,9 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
 
     public static String TAG = "==APITask==";
 
+    final private String client_id = "67abe6658d094665adde7f9d613d9af9";
+    final private String client_secret = "8KDAdbzKPYhPSjhbkvOu0g7SxWQqRzJe";
+
     Context context;
     String results = "";
 
@@ -42,7 +45,7 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
 
             // Add headers
             httpClient.setRequestMethod("POST");
-            String urlParameters = "client_id=67abe6658d094665adde7f9d613d9af9&client_secret=8KDAdbzKPYhPSjhbkvOu0g7SxWQqRzJe&grant_type=client_credentials";
+            String urlParameters = context.getString(R.string.api_tokenRequest, client_id, client_secret);
 
             httpClient.setConnectTimeout(1000);
             httpClient.setReadTimeout(1000);

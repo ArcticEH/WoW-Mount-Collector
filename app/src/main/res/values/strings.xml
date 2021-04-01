@@ -10,6 +10,8 @@
     <string name="db_imageDesc">World of Warcraft Icon</string>
     <string name="db_mountHeader">Mounts</string>
     <string name="db_receivedFromApi">*mounts retrieved from WoW APIs</string>
+    <string name="db_status_noMounts">No items to display</string>
+    <string name="db_status_offlineMode">Unable to contact WoW APIs. You may access your collection only in offline mode</string>
 
     <!-- Collection Fragment -->
     <string name="collection_title">Collection</string>
@@ -33,8 +35,6 @@
     <string name="collectionAdapter_yes">Yes</string>
     <string name="collectionAdapter_no">No</string>
 
-
-
     <!-- Shared Preferences -->
     <string name="sharedPreferences_file">Collection</string>
     <string name="sharedPreferences_token_key">tokenKey</string>
@@ -43,10 +43,14 @@
     <string name="open">Open Drawer</string>
     <string name="close">Close Drawer</string>
 
-
     <!-- API Endpoints -->
+    <string name="api_tokenRequest">client_id=%1$s&amp;client_secret=%2$s&amp;grant_type=client_credentials</string>
+    <string name="api_allMounts">https://us.api.blizzard.com/data/wow/mount/index?namespace=static-us&amp;locale=en_US&amp;access_token=%1$s</string>
     <string name="api_creatureDisplay">https://us.api.blizzard.com/data/wow/media/creature-display/%1$s?namespace=static-us&amp;locale=en_US&amp;access_token=%2$s</string>
     <string name="api_mountDetail">https://us.api.blizzard.com/data/wow/mount/%1$s?namespace=static-us&amp;locale=en_US&amp;access_token=%2$s</string>
+
+    <!-- Helpers -->
+    <string name="helper_dateFormat">"dd-MM-yyyy"</string>
 
 
 </resources>

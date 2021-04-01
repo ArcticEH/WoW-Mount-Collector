@@ -17,11 +17,7 @@ public class DownloadImageTask
         extends AsyncTask<String, Void, Bitmap> {
     public static String TAG = "==DownloadImageTask==";
     public static int HTTP_OK = 200;
-    /**
-     * Download an image as a background task
-     * @param urls - expect the first string to be a URL of an image
-     * @return null on failure, a bit mapped image otherwise
-     */
+
     protected Bitmap doInBackground(String... urls) {
         // Use the URL Connection interface to download the URL
         Bitmap bmp = null;
@@ -43,10 +39,8 @@ public class DownloadImageTask
         Log.d(TAG, "done " + statusCode);
         return bmp;
     }
-    /**
-     * after downloading is complete display the image
-     * @param result - a bitmap image, null will skip the routine
-     */
+
+
     protected void onPostExecute(Bitmap result) {
         Log.d(TAG,"onPostExecute()");
         if (result != null) {
