@@ -21,31 +21,31 @@ import ca.mohawk.kolar.fragments.MountDatabaseFragment;
 import ca.mohawk.kolar.models.AllMountRequestResult;
 import ca.mohawk.kolar.models.CreatureDisplayResult;
 
+/**
+ * Class used to send simple GET requests within App
+ * Class is to be used with GetRequestType in order to evaluate results
+ */
 public class GetRequestTask extends AsyncTask<String, Void, String> {
-
-
-
-    // https://mkyong.com/java/how-to-send-http-request-getpost-in-java/
-
     public static String TAG = "==GetRequestTask==";
 
+    // Request state
     String results = "";
     String requestType = "";
 
-
-
+    /**
+     * Makes request to API and attempts to retrieve results
+     * @param params first String param is the URL
+     *               second String param is the RequestType set to string
+     * @return
+     */
     @Override
     protected String doInBackground(String... params) {
         Log.d(TAG, "doInBackground()");
 
-        Log.d(TAG, "Starting Background Task");
-
         try {
-
             // Get request information
             String url = params[0];
             requestType = params[1];
-
 
             // Setup Http client
             HttpsURLConnection httpClient = (HttpsURLConnection) new URL(url).openConnection();
@@ -60,32 +60,37 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
             // Read response
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(httpClient.getInputStream()));
-
             String line;
             StringBuilder response = new StringBuilder();
-
             while ((line = in.readLine()) != null) {
                 response.append(line);
             }
 
-            //print result
+            // Print result for debug purposes
             Log.d(TAG, response.toString());
             results = response.toString();
 
         } catch (IOException ex) {
+            // Log message. For now, a blank result will indicate an error
             Log.d(TAG, "Caught Exception: " + ex);
         }
 
+        // Return the results
         return results;
     }
 
 
+    /**
+     * Evaluate result based on request type
+     * @param result
+     */
     protected void onPostExecute(String result) {
         Log.d(TAG, "onPostExecute()");
 
         // Parse result based on request type
         Gson gson = new Gson();
 
+        // Determine request type. Lack of a valid request type results in no post execute functionality
         try {
             if (requestType.equals(GetRequestType.AllMounts.toString())) {
                 AllMountRequestResult allMountRequestResult = gson.fromJson(result, AllMountRequestResult.class);
@@ -105,6 +110,7 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
                 // Start image download task
                 DownloadImageTask dl = new DownloadImageTask();
                 dl.execute(creatureDisplayResult.assets[0].value);
+                return;
             }
         } catch (Exception e) {
             Log.d(TAG, "Exception occurred during PostExecute get task - " + e.getMessage());
@@ -112,7 +118,12 @@ public class GetRequestTask extends AsyncTask<String, Void, String> {
             if (requestType.equals(GetRequestType.AllMounts.toString())) {
                 MountDatabaseFragment.instance.SetStatus("Error occurred fetching mounts. Check your internet connection and reload app to try again.", false, true);
             }
+
+            return;
         }
+
+        // No valid request type was entered
+        Log.d(TAG, "If request reached here, then an invalid request type was entered");
 
 
     }

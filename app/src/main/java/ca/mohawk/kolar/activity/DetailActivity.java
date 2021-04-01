@@ -114,6 +114,10 @@ public class DetailActivity extends AppCompatActivity {
         mountNameTextView.setText(mountDetailResult.name);
         mountDescriptionTextView.setText(mountDetailResult.description);
 
+        // Set mount info
+        mountName = mountDetailResult.name;
+        mountDescription = mountDetailResult.description;
+
         // Make new request for image with creature media id received
         String token = sharedPreferences.getString(getString(R.string.sharedPreferences_token_key), "");
         GetRequestTask getRequestTask = new GetRequestTask();

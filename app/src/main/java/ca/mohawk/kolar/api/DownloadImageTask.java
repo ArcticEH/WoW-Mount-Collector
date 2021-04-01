@@ -12,13 +12,22 @@ import java.net.URL;
 
 import ca.mohawk.kolar.activity.DetailActivity;
 
-
+/**
+ * AsyncTask used to download image from URL
+ */
 public class DownloadImageTask
         extends AsyncTask<String, Void, Bitmap> {
     public static String TAG = "==DownloadImageTask==";
+
+    // Statically set ok result code
     public static int HTTP_OK = 200;
 
+    /**
+     * Does background request for image with URL
+     */
     protected Bitmap doInBackground(String... urls) {
+        Log.d(TAG,"doInBackground()");
+
         // Use the URL Connection interface to download the URL
         Bitmap bmp = null;
         Log.d(TAG, "do background " + urls[0]);
@@ -40,9 +49,14 @@ public class DownloadImageTask
         return bmp;
     }
 
-
+    /**
+     * Set image once result is retrieved
+     * @param result The bitmap result
+     */
     protected void onPostExecute(Bitmap result) {
         Log.d(TAG,"onPostExecute()");
+
+        // Only set image if result has been set (successful request)
         if (result != null) {
             DetailActivity.instance.SetMountImage(result);
         }

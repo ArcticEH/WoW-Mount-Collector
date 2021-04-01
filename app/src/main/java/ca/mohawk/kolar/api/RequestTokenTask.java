@@ -22,21 +22,32 @@ import ca.mohawk.kolar.activity.LoadingActivity;
 import ca.mohawk.kolar.R;
 import ca.mohawk.kolar.models.TokenResult;
 
+/**
+ * Class used to create POST request for token from Blizzard API
+ */
 public class RequestTokenTask extends AsyncTask<Context, Void, String> {
-
     public static String TAG = "==APITask==";
 
+    // Client ID and Secret saved and only associated with requesting valid token
     final private String client_id = "67abe6658d094665adde7f9d613d9af9";
     final private String client_secret = "8KDAdbzKPYhPSjhbkvOu0g7SxWQqRzJe";
 
+    // Save context in order to save to shared preferences. Only leaked during app startup
     Context context;
+
+    // Results to be saved here
     String results = "";
 
+    /**
+     * Makes POST request for token from Blizzard API
+     * @param params
+     * @return
+     */
     @Override
     protected String doInBackground(Context... params) {
         Log.d(TAG, "doInBackground()");
 
-        Log.d(TAG, "Starting Background Task");
+        // Retrieve context from params
         context = params[0];
 
         try {
@@ -48,29 +59,20 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
             httpClient.setRequestMethod("POST");
             String urlParameters = context.getString(R.string.api_tokenRequest, client_id, client_secret);
 
-            httpClient.setConnectTimeout(1000);
-            httpClient.setReadTimeout(1000);
-            httpClient.getReadTimeout();
+            // Set timeouts. Shorter to provide easier means of accessing offline mode if required
+            httpClient.setConnectTimeout(10000);
+            httpClient.setReadTimeout(10000);
 
             // Send POST request
             httpClient.setDoOutput(true);
-
-
-
             try (DataOutputStream wr = new DataOutputStream(httpClient.getOutputStream())) {
                 wr.writeBytes(urlParameters);
                 wr.flush();
             }
-
             httpClient.connect();
 
             // Handle Response
             int responseCode = httpClient.getResponseCode();
-
-            // Log response
-            Log.d(TAG, url);
-            Log.d(TAG, urlParameters);
-            Log.d(TAG, String.valueOf(responseCode));
 
             // Read response
             BufferedReader in = new BufferedReader(
@@ -83,7 +85,7 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
                 response.append(line);
             }
 
-            //print result
+            //Print result
             Log.d(TAG, response.toString());
             results = response.toString();
 
@@ -91,10 +93,14 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
             Log.d(TAG, "Caught Exception: " + ex);
         }
 
+        // Finally, return results
         return results;
     }
 
-
+    /**
+     * Interprets result from token request
+     * @param result
+     */
     protected void onPostExecute(String result) {
         Log.d(TAG, "onPostExecute()");
 
@@ -109,8 +115,11 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
             editor.putString(context.getString(R.string.sharedPreferences_token_key), tokenResult.access_token);
             editor.apply();
 
+            // Place app into online mode and transition to main activity
             LoadingActivity.instance.SuccessfulLogin();
         } else {
+
+            // Place app into offline mode due to invalid token
             LoadingActivity.instance.UnsuccessfulLogin();
         }
 
