@@ -44,7 +44,7 @@ public class MountAdapter extends ArrayAdapter<MountResult> {
 
         // Check if view is already being reused, otherwise inflate
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.mount_result_layout, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_mount_result, parent, false);
         }
 
         // Lookup view for mount info

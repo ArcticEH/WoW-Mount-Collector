@@ -52,7 +52,7 @@ public class MountDatabaseFragment extends Fragment {
         Log.d(TAG, "onCreateView()");
 
         // Inflate the layout
-        View view = inflater.inflate(R.layout.mount_database, container, false);
+        View view = inflater.inflate(R.layout.fragment_mount_database, container, false);
 
         // Set main activity to access from requests
         instance = this;

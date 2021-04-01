@@ -55,7 +55,7 @@ public class CollectionAdapter extends ArrayAdapter<CollectionModel> {
 
         // Check if view is already being reused, otherwise inflate
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.mount_collection_layout, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_mount_collection, parent, false);
         }
 
         // Lookup view for mount info

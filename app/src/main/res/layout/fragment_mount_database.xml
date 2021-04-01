@@ -180,7 +180,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#FFFFFF"
-        app:headerLayout="@layout/header"
+        app:headerLayout="@layout/layout_header"
         app:itemTextColor="#303030"
         app:itemIconTint="#303030"
         app:menu="@menu/drawer_menu"></com.google.android.material.navigation.NavigationView>
