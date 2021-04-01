@@ -36,6 +36,8 @@ public class LoadingActivity extends AppCompatActivity {
     public void SuccessfulLogin() {
         // Request token and wait for result before moving on
         MountDatabaseFragment.offlineMode = false;
+        Intent myIntent = new Intent(this, NavigationViewActivity.class);
+        startActivity(myIntent);
 
     }
 
