@@ -1,4 +1,4 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.List;
+
+import ca.mohawk.kolar.R;
+import ca.mohawk.kolar.models.MountResult;
 
 public class MountAdapter extends ArrayAdapter<MountResult> {
 

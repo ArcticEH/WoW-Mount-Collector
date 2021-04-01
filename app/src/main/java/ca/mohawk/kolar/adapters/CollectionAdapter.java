@@ -1,23 +1,24 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
+
+import ca.mohawk.kolar.R;
+import ca.mohawk.kolar.database.MyDbHelper;
+import ca.mohawk.kolar.models.CollectionModel;
 
 public class CollectionAdapter extends ArrayAdapter<CollectionModel> {
 

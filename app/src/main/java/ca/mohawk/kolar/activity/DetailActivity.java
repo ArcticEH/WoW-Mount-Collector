@@ -1,8 +1,7 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,9 +9,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +18,12 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import ca.mohawk.kolar.R;
+import ca.mohawk.kolar.api.GetRequestTask;
+import ca.mohawk.kolar.api.GetRequestType;
+import ca.mohawk.kolar.database.MyDbHelper;
+import ca.mohawk.kolar.models.MountDetailResult;
 
 public class DetailActivity extends AppCompatActivity {
 

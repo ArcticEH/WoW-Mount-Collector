@@ -1,7 +1,7 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.models;
 
 public class CreatureDisplayResult {
     public transient String _links;
-    public CreatureDisplayMediaAssets[] assets;
+    public CreatureDisplayMediaResult[] assets;
     public int id;
 }

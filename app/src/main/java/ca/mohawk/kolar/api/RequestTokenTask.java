@@ -1,4 +1,4 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.api;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,15 +11,16 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 
 
 import javax.net.ssl.HttpsURLConnection;
+
+import ca.mohawk.kolar.activity.LoadingActivity;
+import ca.mohawk.kolar.R;
+import ca.mohawk.kolar.models.TokenResult;
 
 public class RequestTokenTask extends AsyncTask<Context, Void, String> {
 

@@ -1,4 +1,4 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.fragments;
 
 import android.os.Bundle;
 
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import ca.mohawk.kolar.R;
 
 
 public class FilterFragment extends DialogFragment {

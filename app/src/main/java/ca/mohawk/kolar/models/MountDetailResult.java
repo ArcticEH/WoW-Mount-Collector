@@ -1,4 +1,6 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.models;
+
+import ca.mohawk.kolar.models.CreatureDisplayResult;
 
 public class MountDetailResult {
     public transient String _links;

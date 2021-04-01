@@ -12,18 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject">
 
-        <activity android:name=".NavigationViewActivity"
+        <activity android:name=".activity.NavigationViewActivity"
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".DetailActivity"
+        <activity android:name=".activity.DetailActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ca.mohawk.kolar.MountDatabaseFragment"
+                android:value="ca.mohawk.kolar.fragments.MountDatabaseFragment"
                 />
         </activity>
-        <activity android:name=".LoadingActivity"
+        <activity android:name=".activity.LoadingActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

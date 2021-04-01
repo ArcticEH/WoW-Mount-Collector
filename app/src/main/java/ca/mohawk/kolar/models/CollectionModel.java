@@ -1,4 +1,4 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.models;
 
 
 public class CollectionModel {

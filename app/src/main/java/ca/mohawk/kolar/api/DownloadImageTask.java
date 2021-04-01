@@ -1,16 +1,16 @@
 
-package ca.mohawk.kolar;
-import android.app.Activity;
+package ca.mohawk.kolar.api;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ImageView;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import ca.mohawk.kolar.activity.DetailActivity;
 
 
 public class DownloadImageTask

@@ -1,4 +1,4 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.fragments;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,6 +18,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import ca.mohawk.kolar.activity.DetailActivity;
+import ca.mohawk.kolar.api.GetRequestTask;
+import ca.mohawk.kolar.api.GetRequestType;
+import ca.mohawk.kolar.adapters.MountAdapter;
+import ca.mohawk.kolar.R;
+import ca.mohawk.kolar.models.MountResult;
 
 public class MountDatabaseFragment extends Fragment {
     public static String TAG = "==MountDatabaseFragment==";

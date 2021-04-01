@@ -1,4 +1,4 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

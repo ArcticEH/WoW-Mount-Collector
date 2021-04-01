@@ -1,15 +1,13 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
 
-import com.google.android.material.navigation.NavigationView;
-
-import java.util.concurrent.ExecutionException;
+import ca.mohawk.kolar.R;
+import ca.mohawk.kolar.api.RequestTokenTask;
+import ca.mohawk.kolar.fragments.MountDatabaseFragment;
 
 public class LoadingActivity extends AppCompatActivity {
     public static String TAG = "==LoadingActivity==";

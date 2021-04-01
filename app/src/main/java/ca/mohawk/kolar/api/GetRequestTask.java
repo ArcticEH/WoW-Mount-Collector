@@ -1,6 +1,5 @@
-package ca.mohawk.kolar;
+package ca.mohawk.kolar.api;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -16,27 +15,14 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-enum GetRequestType {
-    AllMounts {
-        public String toString() {
-            return "AllMounts";
-        }
-    },
-
-    CreatureImage {
-        public String toString() {
-            return "CreatureImage";
-        }
-    },
-
-    MountDetail {
-        public String toString() {
-            return "MountDetail";
-        }
-    }
-}
+import ca.mohawk.kolar.activity.DetailActivity;
+import ca.mohawk.kolar.models.MountDetailResult;
+import ca.mohawk.kolar.fragments.MountDatabaseFragment;
+import ca.mohawk.kolar.models.AllMountRequestResult;
+import ca.mohawk.kolar.models.CreatureDisplayResult;
 
 public class GetRequestTask extends AsyncTask<String, Void, String> {
+
 
 
     // https://mkyong.com/java/how-to-send-http-request-getpost-in-java/
