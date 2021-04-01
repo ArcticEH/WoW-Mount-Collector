@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
@@ -19,16 +20,26 @@ import ca.mohawk.kolar.R;
 import ca.mohawk.kolar.fragments.CollectionFragment;
 import ca.mohawk.kolar.fragments.MountDatabaseFragment;
 
+/**
+ * Navigation view activity used to display fragments in entire view
+ * Must use this workflow to allow persistent navigation view between pages
+ */
 public class NavigationViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private static String TAG = "==NavigationViewActivity==";
 
+    // Caches
     FragmentManager fragmentManager;
-
     DrawerLayout navigationDrawer;
     NavigationView navigationView;
 
+    /**
+     * Configures navigation view and sets first item
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate()");
         setContentView(R.layout.activity_navigation_view);
 
         // Access drawer
@@ -60,8 +71,15 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
 
     }
 
+    /**
+     * When navigation item is selected do change view procedures
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Log.d(TAG, "onNavigationItemSelected()");
+
         // Set selected menu items
         int size = navigationView.getMenu().size();
         for (int i = 0; i < size; i++) {
@@ -85,21 +103,28 @@ public class NavigationViewActivity extends AppCompatActivity implements Navigat
                 fragmentToDisplay = new CollectionFragment();
                 break;
             default:
-                fragmentToDisplay = new MountDatabaseFragment();
+                fragmentToDisplay = new MountDatabaseFragment(); // Display home view by default
 
         }
 
+        // Complete fragment transaction
         fragmentTransaction.replace(R.id.FrameLayout, fragmentToDisplay);
         fragmentTransaction.commit();
-
 
         // Close menu drawer
         navigationDrawer.closeDrawers();
         return false;
     }
 
+    /**
+     * Open or close navigation drawer
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected()");
+
         // Find out the current state of the drawer (open or closed)
         boolean isOpen = navigationDrawer.isDrawerOpen(GravityCompat.START);
         // Handle item selection
