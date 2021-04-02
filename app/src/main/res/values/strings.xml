@@ -44,7 +44,8 @@
     <string name="close">Close Drawer</string>
 
     <!-- API Endpoints -->
-    <string name="api_tokenRequest">client_id=%1$s&amp;client_secret=%2$s&amp;grant_type=client_credentials</string>
+    <string name="api_tokenRequest">https://us.battle.net/oauth/token</string>
+    <string name="api_tokenRequestParameters">client_id=%1$s&amp;client_secret=%2$s&amp;grant_type=client_credentials</string>
     <string name="api_allMounts">https://us.api.blizzard.com/data/wow/mount/index?namespace=static-us&amp;locale=en_US&amp;access_token=%1$s</string>
     <string name="api_creatureDisplay">https://us.api.blizzard.com/data/wow/media/creature-display/%1$s?namespace=static-us&amp;locale=en_US&amp;access_token=%2$s</string>
     <string name="api_mountDetail">https://us.api.blizzard.com/data/wow/mount/%1$s?namespace=static-us&amp;locale=en_US&amp;access_token=%2$s</string>

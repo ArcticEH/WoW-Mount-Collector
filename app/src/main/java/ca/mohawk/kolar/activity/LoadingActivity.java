@@ -11,6 +11,13 @@ import ca.mohawk.kolar.api.RequestTokenTask;
 import ca.mohawk.kolar.fragments.MountDatabaseFragment;
 
 /**
+ * I, Brandon Kolar ,000800648 certify that this material is my original work.
+ * No other person's work has been used without due acknowledgement.
+ *
+ * Video Demo: https://www.youtube.com/watch?v=cS8GXynDIzE
+ */
+
+/**
  * Loading activity used to request token from Blizzard API and determine if app will be in offload mode
  */
 public class LoadingActivity extends AppCompatActivity {

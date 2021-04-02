@@ -52,12 +52,12 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
 
         try {
             // Setup Http client
-            String url = "https://us.battle.net/oauth/token";
+            String url = context.getString(R.string.api_tokenRequest);
             HttpsURLConnection httpClient = (HttpsURLConnection) new URL(url).openConnection();
 
             // Add headers
             httpClient.setRequestMethod("POST");
-            String urlParameters = context.getString(R.string.api_tokenRequest, client_id, client_secret);
+            String urlParameters = context.getString(R.string.api_tokenRequestParameters, client_id, client_secret);
 
             // Set timeouts. Shorter to provide easier means of accessing offline mode if required
             httpClient.setConnectTimeout(10000);
@@ -77,10 +77,8 @@ public class RequestTokenTask extends AsyncTask<Context, Void, String> {
             // Read response
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(httpClient.getInputStream()));
-
             String line;
             StringBuilder response = new StringBuilder();
-
             while ((line = in.readLine()) != null) {
                 response.append(line);
             }
